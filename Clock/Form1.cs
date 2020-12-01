@@ -27,6 +27,16 @@ namespace Clock
             cnt_min = (int)numMin.Value;
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void numHour_ValueChanged(object sender, EventArgs e)
         {
             cnt_hour = (int)numHour.Value * 5;
