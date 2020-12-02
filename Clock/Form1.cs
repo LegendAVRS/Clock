@@ -24,15 +24,21 @@ namespace Clock
 
         private void numMin_ValueChanged(object sender, EventArgs e)
         {
+            cnt_sec = (int)numSec.Value;
             cnt_min = (int)numMin.Value;
+            cnt_hour = (int)numHour.Value * 5;
             cnt_hour += cnt_min / 12;
         }
 
-    
-        
+        private void Form1_MouseMove_1(object sender, MouseEventArgs e)
+        {
+
+        }
 
         private void numHour_ValueChanged(object sender, EventArgs e)
         {
+            cnt_sec = (int)numSec.Value;
+            cnt_min = (int)numMin.Value;
             cnt_hour = (int)numHour.Value * 5;
             cnt_hour += cnt_min / 12;
         }
@@ -40,6 +46,9 @@ namespace Clock
         private void numSec_ValueChanged(object sender, EventArgs e)
         {
             cnt_sec = (int)numSec.Value;
+            cnt_min = (int)numMin.Value;
+            cnt_hour = (int)numHour.Value * 5;
+            cnt_hour += cnt_min / 12;
         }
 
         public Form1()
@@ -61,6 +70,12 @@ namespace Clock
             pivot_second = second_hand_p;
             pivot_minute = minute_hand_p;
             pivot_hour = hour_hand_p;
+
+            DateTime dt = DateTime.Now;
+            cnt_sec = dt.Second;
+            cnt_min = dt.Minute;
+            cnt_hour = dt.Hour * 5 + cnt_min / 12;
+            
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
@@ -95,14 +110,14 @@ namespace Clock
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            txtTime.Text = (cnt_hour / 5).ToString() + ":" + cnt_min.ToString() + ":" + cnt_sec.ToString();
+            
             ++cnt_sec;
             drawHand(ref second_hand_p, pivot_second, cnt_sec);
             drawHand(ref minute_hand_p, pivot_minute, cnt_min);
             drawHand(ref hour_hand_p, pivot_hour, cnt_hour);
             if (cnt_sec == 60)
             {
-                cnt_sec = 1;
+                cnt_sec = 0;
                 ++cnt_min;
                 flag = false;
             }
@@ -119,7 +134,15 @@ namespace Clock
             {
                 cnt_hour = 0;
             }
-            Console.WriteLine(cnt_hour);
+            if (cnt_hour < 10 * 5) txtTime.Text = "0" + (cnt_hour / 5).ToString();
+            else txtTime.Text = (cnt_hour / 5).ToString();
+            txtTime.Text += ":";
+            if (cnt_min < 10) txtTime.Text += "0" + cnt_min.ToString();
+            else txtTime.Text += cnt_min.ToString();
+            txtTime.Text += ":";
+            if (cnt_sec < 10) txtTime.Text += "0" + cnt_sec.ToString();
+            else txtTime.Text += cnt_sec.ToString();
+
         }
 
         void drawClock()

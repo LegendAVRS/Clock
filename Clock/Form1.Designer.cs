@@ -136,6 +136,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove_1);
             ((System.ComponentModel.ISupportInitialize)(this.numHour)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSec)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).EndInit();
