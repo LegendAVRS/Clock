@@ -45,7 +45,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(132, 337);
+            this.label1.Location = new System.Drawing.Point(132, 368);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 17);
             this.label1.TabIndex = 0;
@@ -59,7 +59,7 @@
             // 
             // numHour
             // 
-            this.numHour.Location = new System.Drawing.Point(12, 360);
+            this.numHour.Location = new System.Drawing.Point(12, 391);
             this.numHour.Maximum = new decimal(new int[] {
             23,
             0,
@@ -72,7 +72,7 @@
             // 
             // numSec
             // 
-            this.numSec.Location = new System.Drawing.Point(231, 360);
+            this.numSec.Location = new System.Drawing.Point(239, 391);
             this.numSec.Maximum = new decimal(new int[] {
             59,
             0,
@@ -85,7 +85,7 @@
             // 
             // numMin
             // 
-            this.numMin.Location = new System.Drawing.Point(117, 360);
+            this.numMin.Location = new System.Drawing.Point(117, 391);
             this.numMin.Maximum = new decimal(new int[] {
             59,
             0,
@@ -99,7 +99,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 337);
+            this.label2.Location = new System.Drawing.Point(32, 368);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 17);
             this.label2.TabIndex = 4;
@@ -108,7 +108,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(242, 337);
+            this.label3.Location = new System.Drawing.Point(250, 368);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 17);
             this.label3.TabIndex = 5;
@@ -116,7 +116,7 @@
             // 
             // txtTime
             // 
-            this.txtTime.Location = new System.Drawing.Point(345, 12);
+            this.txtTime.Location = new System.Drawing.Point(644, 368);
             this.txtTime.Name = "txtTime";
             this.txtTime.Size = new System.Drawing.Size(119, 22);
             this.txtTime.TabIndex = 6;

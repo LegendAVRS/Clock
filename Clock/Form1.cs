@@ -17,10 +17,10 @@ namespace Clock
         private Point clock_p = new Point(200, 50);
         private Point hour_hand_p, minute_hand_p, second_hand_p, middle_point, new_point;
         private Point pivot_second, pivot_minute, pivot_hour;
-        private int degree = 6;
+        private int degree = 6, width = 300, height = 300;
 
         private int cnt_sec = 0, cnt_min = 0, cnt_hour = 0;
-        private bool flag = false;
+        private bool flag = false, drawn = false;
 
         private void numMin_ValueChanged(object sender, EventArgs e)
         {
@@ -50,17 +50,17 @@ namespace Clock
         {
             InitializeComponent();
             middle_point = clock_p;
-            middle_point.X += 100;
-            middle_point.Y += 100;
+            middle_point.X += 120;
+            middle_point.Y += 120;
 
             second_hand_p = middle_point;
-            second_hand_p.Y -= 85;
+            second_hand_p.Y -= 140;
 
             minute_hand_p = middle_point;
-            minute_hand_p.Y -= 75;
+            minute_hand_p.Y -= 110;
 
             hour_hand_p = middle_point;
-            hour_hand_p.Y -= 60;
+            hour_hand_p.Y -= 100;
 
             pivot_second = second_hand_p;
             pivot_minute = minute_hand_p;
@@ -70,12 +70,12 @@ namespace Clock
             cnt_sec = dt.Second;
             cnt_min = dt.Minute;
             cnt_hour = dt.Hour * 5 + cnt_min / 12;
+           
         }
-
-     
 
         void drawHand(ref Point clock_hand, Point pivot, int cnt)
         {    
+
             mypen.Color = this.BackColor;
             g.DrawLine(mypen, middle_point, clock_hand); //Remove old line
             
@@ -134,16 +134,15 @@ namespace Clock
 
         void drawClock()
         {
-            g.DrawEllipse(mypen, clock_p.X, clock_p.Y, 200, 200);
-         /*   g.DrawString("12", new Font("Ariel", 14), Brushes.Black, clock_p.X + 85, clock_p.Y + 5);
-            g.DrawString("3", new Font("Ariel", 14), Brushes.Black, clock_p.X + 180, clock_p.Y + 85);
-            g.DrawString("6", new Font("Ariel", 14), Brushes.Black, clock_p.X + 90, clock_p.Y + 175);
-            g.DrawString("9", new Font("Ariel", 14), Brushes.Black, clock_p.X + 5, clock_p.Y + 85);*/
-
+            mypen.Width = 3;
+            g.DrawEllipse(mypen, middle_point.X - 150, middle_point.Y - 150, width, height);
+            mypen.Width = 1;
             Point temp_p = second_hand_p;
             temp_p.Y -= 5;
             Point temp_p_1 = temp_p;
+            Point temp_p_2 = temp_p_1;
             temp_p_1.Y += 2;
+            temp_p_2.Y += 10;
 
             temp_p.Y *= -1;
             temp_p.X -= middle_point.X;
@@ -153,8 +152,13 @@ namespace Clock
             temp_p_1.X -= middle_point.X;
             temp_p_1.Y += middle_point.Y;
 
+            temp_p_2.Y *= -1;
+            temp_p_2.X -= middle_point.X;
+            temp_p_2.Y += middle_point.Y;
+
             Point first_point = new Point();
             Point second_point = new Point();
+            Point num_point = new Point();
 
             for (int i = 0;i < 60;++i)
             {
@@ -166,6 +170,9 @@ namespace Clock
                 second_point.X = (int)Math.Ceiling(temp_p.X * Math.Cos(rad)) - (int)Math.Ceiling(temp_p.Y * Math.Sin(rad));
                 second_point.Y = (int)Math.Ceiling(temp_p.X * Math.Sin(rad)) + (int)Math.Ceiling(temp_p.Y * Math.Cos(rad));
 
+                num_point.X = (int)Math.Ceiling(temp_p_2.X * Math.Cos(rad)) - (int)Math.Ceiling(temp_p_2.Y * Math.Sin(rad));
+                num_point.Y = (int)Math.Ceiling(temp_p_2.X * Math.Sin(rad)) + (int)Math.Ceiling(temp_p_2.Y * Math.Cos(rad));
+
                 first_point.X += middle_point.X;
                 first_point.Y -= middle_point.Y;
                 first_point.Y *= -1;
@@ -174,22 +181,30 @@ namespace Clock
                 second_point.Y -= middle_point.Y;
                 second_point.Y *= -1;
 
+                num_point.X += middle_point.X;
+                num_point.Y -= middle_point.Y;
+                num_point.Y *= -1;
+
                 if (i % 5 == 0)
                 {
                     int time = i / 5;
                     if (i == 0) time = 12;
-                    g.DrawString(time.ToString(), new Font("Ariel", 8), Brushes.Black, second_point.X - 7, second_point.Y - 5);
+                    mypen.Width = 3;
+                    g.DrawString(time.ToString(), new Font("Ariel", 10), Brushes.Black, num_point.X - 6, num_point.Y - 7);
+                    mypen.Width = 5;
                 }
-                else g.DrawLine(mypen, first_point, second_point);
-            }
-            mypen.Color = Color.Black;   
+
+                g.DrawLine(mypen, first_point, second_point);
+                mypen.Width = 1;
+            } 
+            pivot_second.Y += 5;
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             g = this.CreateGraphics();
             mypen = new Pen(Color.Black);
-            drawClock();
+            drawClock();    
         }
     }
 }
