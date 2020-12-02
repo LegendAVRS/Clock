@@ -30,11 +30,6 @@ namespace Clock
             cnt_hour += cnt_min / 12;
         }
 
-        private void Form1_MouseMove_1(object sender, MouseEventArgs e)
-        {
-
-        }
-
         private void numHour_ValueChanged(object sender, EventArgs e)
         {
             cnt_sec = (int)numSec.Value;
@@ -75,20 +70,15 @@ namespace Clock
             cnt_sec = dt.Second;
             cnt_min = dt.Minute;
             cnt_hour = dt.Hour * 5 + cnt_min / 12;
-            
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-            label1.Text = e.X.ToString() + " " + e.Y.ToString();
-        }
+     
 
         void drawHand(ref Point clock_hand, Point pivot, int cnt)
         {    
             mypen.Color = this.BackColor;
             g.DrawLine(mypen, middle_point, clock_hand); //Remove old line
             
-
             double rad = -(Math.PI / 180) * degree * cnt;
 
             Point temp_p = pivot;     //Pivot point
@@ -104,13 +94,11 @@ namespace Clock
             clock_hand.Y *= -1;
 
             mypen.Color = Color.Black;
-            g.DrawLine(mypen, middle_point, clock_hand);
-            
+            g.DrawLine(mypen, middle_point, clock_hand); 
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
-            
+        {         
             ++cnt_sec;
             drawHand(ref second_hand_p, pivot_second, cnt_sec);
             drawHand(ref minute_hand_p, pivot_minute, cnt_min);
@@ -142,7 +130,6 @@ namespace Clock
             txtTime.Text += ":";
             if (cnt_sec < 10) txtTime.Text += "0" + cnt_sec.ToString();
             else txtTime.Text += cnt_sec.ToString();
-
         }
 
         void drawClock()
@@ -187,11 +174,14 @@ namespace Clock
                 second_point.Y -= middle_point.Y;
                 second_point.Y *= -1;
 
-                g.DrawLine(mypen, first_point, second_point);
+                if (i % 5 == 0)
+                {
+                    int time = i / 5;
+                    if (i == 0) time = 12;
+                    g.DrawString(time.ToString(), new Font("Ariel", 8), Brushes.Black, second_point.X - 7, second_point.Y - 5);
+                }
+                else g.DrawLine(mypen, first_point, second_point);
             }
-
-            
-
             mypen.Color = Color.Black;   
         }
 
